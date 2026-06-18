@@ -1,0 +1,205 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  /* Brand colors */
+  --color-navy: oklch(0.25 0.05 260);
+  --color-navy-light: oklch(0.35 0.05 260);
+  --color-navy-dark: oklch(0.18 0.05 260);
+  --color-blaze: oklch(0.65 0.2 45);
+  --color-blaze-light: oklch(0.72 0.18 45);
+  --color-blaze-dark: oklch(0.55 0.2 45);
+  --color-cream: oklch(0.97 0.005 80);
+  --color-charcoal: oklch(0.35 0.02 260);
+  --font-display: "Barlow Condensed", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --ease-out-snappy: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out-smooth: cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+:root {
+  --radius: 0.5rem;
+  --background: oklch(0.99 0.002 80);
+  --foreground: oklch(0.2 0.02 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.02 260);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.02 260);
+  --primary: oklch(0.25 0.05 260);
+  --primary-foreground: oklch(0.98 0.005 80);
+  --secondary: oklch(0.96 0.005 80);
+  --secondary-foreground: oklch(0.3 0.02 260);
+  --muted: oklch(0.96 0.003 260);
+  --muted-foreground: oklch(0.5 0.02 260);
+  --accent: oklch(0.65 0.2 45);
+  --accent-foreground: oklch(1 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.91 0.005 260);
+  --input: oklch(0.91 0.005 260);
+  --ring: oklch(0.65 0.2 45);
+  --chart-1: oklch(0.65 0.2 45);
+  --chart-2: oklch(0.25 0.05 260);
+  --chart-3: oklch(0.55 0.15 45);
+  --chart-4: oklch(0.35 0.05 260);
+  --chart-5: oklch(0.45 0.1 45);
+  --sidebar: oklch(0.25 0.05 260);
+  --sidebar-foreground: oklch(0.95 0.005 80);
+  --sidebar-primary: oklch(0.65 0.2 45);
+  --sidebar-primary-foreground: oklch(1 0 0);
+  --sidebar-accent: oklch(0.3 0.05 260);
+  --sidebar-accent-foreground: oklch(0.95 0.005 80);
+  --sidebar-border: oklch(0.35 0.05 260);
+  --sidebar-ring: oklch(0.65 0.2 45);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-body;
+    font-family: var(--font-body);
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  [type="button"]:not(:disabled),
+  [type="submit"]:not(:disabled),
+  [type="reset"]:not(:disabled),
+  a[href],
+  select:not(:disabled),
+  input[type="checkbox"]:not(:disabled),
+  input[type="radio"]:not(:disabled) {
+    @apply cursor-pointer;
+  }
+}
+
+@layer components {
+  .container {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .flex {
+    min-height: 0;
+    min-width: 0;
+  }
+
+  @media (min-width: 640px) {
+    .container {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container {
+      padding-left: 2rem;
+      padding-right: 2rem;
+      max-width: 1280px;
+    }
+  }
+
+  /* Brand button styles */
+  .btn-blaze {
+    @apply bg-blaze text-white font-display font-bold uppercase tracking-wide px-6 py-3 rounded-md;
+    transition: all 160ms var(--ease-out-snappy);
+  }
+  .btn-blaze:hover {
+    @apply bg-blaze-dark;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px oklch(0.65 0.2 45 / 0.3);
+  }
+  .btn-blaze:active {
+    transform: scale(0.97);
+  }
+
+  .btn-navy {
+    @apply bg-navy text-white font-display font-bold uppercase tracking-wide px-6 py-3 rounded-md;
+    transition: all 160ms var(--ease-out-snappy);
+  }
+  .btn-navy:hover {
+    @apply bg-navy-light;
+    transform: translateY(-1px);
+  }
+  .btn-navy:active {
+    transform: scale(0.97);
+  }
+
+  /* Card hover effect */
+  .card-lift {
+    transition: transform 180ms var(--ease-out-snappy), box-shadow 180ms var(--ease-out-snappy);
+  }
+  .card-lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px oklch(0 0 0 / 0.12);
+  }
+
+  /* Angled section divider */
+  .angle-top {
+    clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+    margin-top: -3rem;
+    padding-top: 5rem;
+  }
+  .angle-bottom {
+    clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .font-display {
+    font-family: var(--font-display);
+  }
+  .font-body {
+    font-family: var(--font-body);
+  }
+}
