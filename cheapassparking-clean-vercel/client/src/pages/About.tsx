@@ -8,7 +8,7 @@ export default function About() {
       <section className="bg-navy py-12 md:py-16">
         <div className="container">
           <h1 className="font-display text-4xl md:text-6xl font-black text-white mb-4">
-            ABOUT <span className="text-blaze">US</span>
+            ABOUT <span className="text-blaze">Parking</span>
           </h1>
           <p className="text-white/70 text-lg max-w-xl">
             We're on a mission to make parking affordable for everyone, everywhere.
