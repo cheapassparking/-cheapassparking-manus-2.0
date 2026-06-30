@@ -22,6 +22,8 @@ export default function Layout({ children }: LayoutProps) {
   useEffect(() => {
     setMobileOpen(false);
     setLocationsOpen(false);
+    window.scrollTo(0, 0);
+    document.documentElement.scrollTop = 0;
   }, [location]);
 
   return (
