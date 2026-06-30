@@ -79,8 +79,9 @@ export default function Layout({ children }: LayoutProps) {
           </nav>
 
           {/* CTA Button */}
-          <Link href="/reserve" className="hidden md:inline-flex btn-blaze text-sm">
-            Reserve Parking
+          <Link href="/reserve" className="inline-flex btn-blaze text-sm px-4 py-2 md:px-6 md:py-3">
+            <span className="hidden md:inline">Reserve Parking</span>
+            <span className="md:hidden">Reserve</span>
           </Link>
 
           {/* Mobile Menu Toggle */}
