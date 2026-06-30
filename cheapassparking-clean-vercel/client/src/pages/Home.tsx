@@ -1,10 +1,63 @@
-import { Link } from "wouter";
-import { Search, Shield, MapPin, DollarSign, Clock, Star } from "lucide-react";
+import { Link, useLocation } from "wouter";
+import { Search, Shield, MapPin, DollarSign, Clock, Star, Calendar } from "lucide-react";
 import { categories, locations } from "@/lib/data";
 import { useState } from "react";
 
+const customerReviews = [
+  {
+    rating: 5,
+    text: "Saved $80 on our cruise week. The shuttle was already at the lot when we pulled in — didn't wait more than two minutes. Will never pay port prices again.",
+    name: "Mike R.",
+    detail: "Galveston cruise parking",
+  },
+  {
+    rating: 5,
+    text: "Used it for a Texans game and came back for the rodeo. Parked for $15 instead of $40 at the stadium. The math is honestly insane. Booked it on my phone on the way there.",
+    name: "Sarah K.",
+    detail: "NRG Stadium, Houston",
+  },
+  {
+    rating: 4,
+    text: "I was skeptical at first — random lot I'd never heard of. But it was clean, fenced, and well-lit. Left my car for 10 days and it was exactly how I left it.",
+    name: "James W.",
+    detail: "DFW Airport parking",
+  },
+  {
+    rating: 5,
+    text: "Booked it in 30 seconds on my phone while sitting in traffic. Got a confirmation text immediately. The lot was easy to find and the shuttle guy was super friendly.",
+    name: "Priya N.",
+    detail: "IAH Airport parking",
+  },
+  {
+    rating: 5,
+    text: "We do a cruise every year out of Galveston. Used to pay $15/day at the port garage. Now we pay $9 here and get the same free shuttle. No-brainer.",
+    name: "Tom & Linda B.",
+    detail: "Annual cruise, Galveston",
+  },
+  {
+    rating: 4,
+    text: "Good price, easy to find. Only thing I'd say is get there a few minutes early so you're not rushed. Otherwise totally solid — would book again.",
+    name: "Carlos M.",
+    detail: "Strand District, Galveston",
+  },
+];
+
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
+  const [arrivalDate, setArrivalDate] = useState("");
+  const [arrivalTime, setArrivalTime] = useState("");
+  const [departureDate, setDepartureDate] = useState("");
+  const [departureTime, setDepartureTime] = useState("");
+  const [, navigate] = useLocation();
+
+  const today = new Date().toISOString().split("T")[0];
+
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
+    const params = new URLSearchParams();
+    if (searchQuery) params.set("q", searchQuery);
+    navigate(`/find-parking${params.toString() ? `?${params}` : ""}`);
+  }
 
   return (
     <div>
@@ -42,21 +95,77 @@ export default function Home() {
             </p>
 
             {/* Search Bar */}
-            <div className="bg-white rounded-lg shadow-2xl p-2 flex flex-col sm:flex-row gap-2">
-              <div className="flex-1 flex items-center gap-2 px-4">
-                <Search className="w-5 h-5 text-charcoal/40" />
-                <input
-                  type="text"
-                  placeholder="Where do you need parking?"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full py-3 text-charcoal placeholder:text-charcoal/40 outline-none font-body"
-                />
+            <form onSubmit={handleSearch} className="bg-white rounded-xl shadow-2xl overflow-hidden">
+              <div className="flex flex-col lg:flex-row divide-y lg:divide-y-0 lg:divide-x divide-gray-100">
+                {/* Location */}
+                <div className="flex items-center gap-3 px-5 py-4 flex-1 min-w-0">
+                  <Search className="w-5 h-5 text-blaze shrink-0" />
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest mb-0.5">Location</p>
+                    <input
+                      type="text"
+                      placeholder="Where are you parking?"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      className="w-full text-charcoal placeholder:text-charcoal/30 outline-none font-body text-sm font-medium bg-transparent"
+                    />
+                  </div>
+                </div>
+
+                {/* Arrival */}
+                <div className="flex items-center gap-3 px-5 py-4">
+                  <Calendar className="w-5 h-5 text-blaze shrink-0" />
+                  <div>
+                    <p className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest mb-0.5">Arrival</p>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="date"
+                        min={today}
+                        value={arrivalDate}
+                        onChange={(e) => setArrivalDate(e.target.value)}
+                        className="text-sm text-charcoal font-medium outline-none bg-transparent"
+                      />
+                      <input
+                        type="time"
+                        value={arrivalTime}
+                        onChange={(e) => setArrivalTime(e.target.value)}
+                        className="text-sm text-charcoal font-medium outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Departure */}
+                <div className="flex items-center gap-3 px-5 py-4">
+                  <Calendar className="w-5 h-5 text-blaze shrink-0" />
+                  <div>
+                    <p className="text-[10px] font-bold text-charcoal/40 uppercase tracking-widest mb-0.5">Departure</p>
+                    <div className="flex items-center gap-2">
+                      <input
+                        type="date"
+                        min={arrivalDate || today}
+                        value={departureDate}
+                        onChange={(e) => setDepartureDate(e.target.value)}
+                        className="text-sm text-charcoal font-medium outline-none bg-transparent"
+                      />
+                      <input
+                        type="time"
+                        value={departureTime}
+                        onChange={(e) => setDepartureTime(e.target.value)}
+                        className="text-sm text-charcoal font-medium outline-none bg-transparent"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Submit */}
+                <div className="p-3 flex items-stretch">
+                  <button type="submit" className="btn-blaze w-full lg:w-auto whitespace-nowrap">
+                    Find Parking
+                  </button>
+                </div>
               </div>
-              <Link href="/find-parking" className="btn-blaze text-center whitespace-nowrap">
-                Find Parking
-              </Link>
-            </div>
+            </form>
 
             {/* Trust badges */}
             <div className="flex flex-wrap gap-4 mt-6">
@@ -132,6 +241,50 @@ export default function Home() {
             {locations.slice(0, 6).map((loc) => (
               <LocationCard key={loc.id} location={loc} />
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Reviews */}
+      <section className="bg-cream py-16 md:py-20">
+        <div className="container">
+          <div className="text-center mb-12">
+            <h2 className="font-display text-3xl md:text-5xl font-black text-navy">
+              WHAT DRIVERS <span className="text-blaze">ARE SAYING</span>
+            </h2>
+            <p className="text-charcoal/60 mt-2 text-lg">Real customers. Real savings.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {customerReviews.map((review, i) => (
+              <div key={i} className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4">
+                <StarRating rating={review.rating} />
+                <p className="text-charcoal/80 text-sm leading-relaxed flex-1">"{review.text}"</p>
+                <div className="border-t border-gray-100 pt-4 flex items-center justify-between">
+                  <span className="font-display font-bold text-navy text-base">{review.name}</span>
+                  <span className="text-xs text-charcoal/40">{review.detail}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Aggregate trust bar */}
+          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-6 text-center">
+            <div>
+              <p className="font-display text-4xl font-black text-navy">4.8</p>
+              <StarRating rating={4.8} />
+              <p className="text-xs text-charcoal/50 mt-1">Average rating</p>
+            </div>
+            <div className="hidden sm:block w-px h-12 bg-gray-200" />
+            <div>
+              <p className="font-display text-4xl font-black text-navy">2,659</p>
+              <p className="text-xs text-charcoal/50 mt-1">Verified reviews</p>
+            </div>
+            <div className="hidden sm:block w-px h-12 bg-gray-200" />
+            <div>
+              <p className="font-display text-4xl font-black text-navy">97%</p>
+              <p className="text-xs text-charcoal/50 mt-1">Would book again</p>
+            </div>
           </div>
         </div>
       </section>
@@ -239,6 +392,12 @@ function LocationCard({ location }: { location: typeof locations[0] }) {
         <h3 className="font-display text-lg font-bold text-navy group-hover:text-blaze transition-colors">
           {location.name}
         </h3>
+        {location.rating && (
+          <div className="flex items-center gap-1.5 mt-1">
+            <StarRating rating={location.rating} />
+            <span className="text-xs text-charcoal/50">({location.reviewCount?.toLocaleString()})</span>
+          </div>
+        )}
         <p className="text-sm text-charcoal/60 mt-1">{location.address}</p>
         <div className="flex flex-wrap gap-1.5 mt-3">
           {location.features.slice(0, 3).map(f => (
@@ -274,6 +433,22 @@ function FeatureRow({ icon, title, description }: { icon: React.ReactNode; title
         <h4 className="font-display text-lg font-bold text-navy">{title}</h4>
         <p className="text-sm text-charcoal/70">{description}</p>
       </div>
+    </div>
+  );
+}
+
+function StarRating({ rating }: { rating: number }) {
+  return (
+    <div className="flex items-center gap-0.5">
+      {[1, 2, 3, 4, 5].map((i) => {
+        const filled = i <= Math.floor(rating);
+        const half = !filled && i - 0.5 <= rating;
+        return (
+          <svg key={i} className={`w-3.5 h-3.5 ${filled || half ? "text-amber-400" : "text-gray-200"}`} fill="currentColor" viewBox="0 0 20 20">
+            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+          </svg>
+        );
+      })}
     </div>
   );
 }

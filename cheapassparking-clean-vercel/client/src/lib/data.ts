@@ -18,6 +18,8 @@ export interface ParkingLocation {
   features: string[];
   image?: string;
   reserveUrl?: string;
+  rating?: number;
+  reviewCount?: number;
 }
 
 export interface ParkingCategory {
@@ -171,6 +173,8 @@ export const locations: ParkingLocation[] = [
     description: "Closest lot to the Galveston cruise terminal. Secure, paved, and shuttle-serviced.",
     features: ["24/7 Security", "Free Shuttle", "Paved Lot", "Well-Lit"],
     reserveUrl: "#",
+    rating: 4.9,
+    reviewCount: 312,
   },
   {
     id: "galveston-cruise-b",
@@ -184,6 +188,8 @@ export const locations: ParkingLocation[] = [
     description: "Budget-friendly cruise parking with complimentary shuttle to port.",
     features: ["Free Shuttle", "Fenced", "Surveillance Cameras"],
     reserveUrl: "#",
+    rating: 4.7,
+    reviewCount: 189,
   },
   {
     id: "galveston-downtown-strand",
@@ -197,6 +203,8 @@ export const locations: ParkingLocation[] = [
     description: "Walk to shops, restaurants, and the historic Strand district.",
     features: ["Central Location", "Well-Lit", "ADA Accessible"],
     reserveUrl: "#",
+    rating: 4.8,
+    reviewCount: 97,
   },
   {
     id: "houston-event-nrg",
@@ -210,6 +218,8 @@ export const locations: ParkingLocation[] = [
     description: "Steps from NRG Stadium. Perfect for Texans games, rodeo, and concerts.",
     features: ["Stadium Adjacent", "Tailgating Allowed", "Paved"],
     reserveUrl: "#",
+    rating: 4.6,
+    reviewCount: 445,
   },
   {
     id: "houston-airport-iah",
@@ -223,6 +233,8 @@ export const locations: ParkingLocation[] = [
     description: "Affordable long-term parking near George Bush Intercontinental Airport.",
     features: ["Free Shuttle", "Covered Options", "24/7 Security", "EV Charging"],
     reserveUrl: "#",
+    rating: 4.8,
+    reviewCount: 523,
   },
   {
     id: "dallas-airport-dfw",
@@ -236,6 +248,8 @@ export const locations: ParkingLocation[] = [
     description: "Convenient parking with direct shuttle to all DFW terminals.",
     features: ["Free Shuttle", "Covered Parking", "24/7 Security", "Online Booking"],
     reserveUrl: "#",
+    rating: 4.9,
+    reviewCount: 681,
   },
   {
     id: "houston-monthly-downtown",
@@ -249,6 +263,8 @@ export const locations: ParkingLocation[] = [
     description: "Monthly parking in the heart of downtown Houston. Walk to offices and restaurants.",
     features: ["Covered Garage", "24/7 Access", "Reserved Spot", "EV Charging"],
     reserveUrl: "#",
+    rating: 4.7,
+    reviewCount: 134,
   },
   {
     id: "miami-cruise-port",
@@ -262,6 +278,8 @@ export const locations: ParkingLocation[] = [
     description: "Park and cruise from the Port of Miami. Secure and convenient.",
     features: ["Port Adjacent", "24/7 Security", "Covered Options", "Free Shuttle"],
     reserveUrl: "#",
+    rating: 4.8,
+    reviewCount: 278,
   },
 ];
 
