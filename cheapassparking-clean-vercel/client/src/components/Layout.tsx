@@ -195,6 +195,21 @@ export default function Layout({ children }: LayoutProps) {
               Same Donkey. Different Hats. Always Cheap.
             </p>
           </div>
+
+          {/* Payment Methods */}
+          <div className="border-t border-white/10 mt-6 pt-6 flex flex-col items-center gap-3">
+            <p className="text-xs text-white/40 uppercase tracking-widest">We Accept</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {["VISA", "Mastercard", "AMEX", "Discover", "Cash"].map((method) => (
+                <span
+                  key={method}
+                  className="px-3 py-1.5 bg-white/10 rounded text-xs font-semibold text-white/70 tracking-wide border border-white/10"
+                >
+                  {method}
+                </span>
+              ))}
+            </div>
+          </div>
         </div>
       </footer>
     </div>
